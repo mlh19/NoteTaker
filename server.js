@@ -15,7 +15,7 @@ app.use(express.static("public"));
 app.use("/api", apiRoutes);
 app.use("/", htmlRoutes);
 
-// app.listen(PORT, function() {
-//     console.log("App listening on PORT: " + PORT);
-// });
-app.listen(process.env.PORT || 5000);
+app.listen(PORT, function() {
+    console.log("App listening on PORT: " + PORT);
+});
+
