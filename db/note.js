@@ -1,20 +1,20 @@
 const util = require("util");
 const fs = require("fs");
-const { runInThisContext } = require("vm");
-const readFileAsyn = until.promisify(fs.readFile);
+const readFileAsyn = util.promisify(fs.readFile);
 const writeFileAsyn = until.promisify(fs.writeFile);
 
 class Notes {
-    constructor(){
-        this.idDum = 0 
+    constructor() {
+        this.idDum = 0; 
     }
     read () {
-        return readFileAsyn("./db/db.json");
+        return readFileAsyn("./db/db.json", "utf8");
     }
     write(note) {
         return writeFileAsyn("./db/db.json", JSON.stringify(note))
     }
     getNotes() {
+        console.log("get notes");
         return this.read().then(notes => {
             let notesArray;
             try {
@@ -24,10 +24,10 @@ class Notes {
                 notesArray = [];
             }
             return notesArray;
-
         })
     }
     addNotes(note) {
+        console.log("add notes");
         const { title, text } = note;
         const newNote = { title, text, id: ++this.idDum}
         return this.getNotes()
